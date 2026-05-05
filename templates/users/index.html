@@ -1,0 +1,70 @@
+
+<head>
+    {% load static %}
+    <link href="{% static 'css/index.css'%}" rel="stylesheet" />
+</head>
+
+<body>
+
+
+  <div class="search-wrapper">
+    <div class="search-box">
+      <form method="get" action="searchActivity.php" class="search-form">
+
+        <div class="search-inputs">
+          <input type="text" name="location" id="location" placeholder="Destination">
+          <span class="search-divider">|</span>
+          <input type="date" name="date" id="date" placeholder="Date">
+        </div>
+
+        <div class="search-btn-wrapper">
+          <div class="search-btn-inner">
+            <button type="submit" class="search-btn">
+              <i class="fa fa-search" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+  <div class="cards-wrapper">
+    <div class="cards-grid" id="content">
+      {% comment %} <?php
+      try {
+        $travelPackageObj = new Travel($conn);
+        $activityData = $travelPackageObj->getAllAvailableTravelPackages();
+
+        foreach ($activityData as $data) {
+          if (!empty($data['images'])) {
+            $imagePath = str_replace('../', '', $data['images'][0]);
+          }
+          echo "
+          <a class='card-link' href='travelPackage.php?package={$data['package_id']}'>
+            <div class='card-img-wrapper'>
+              <img
+                class='card-img'
+                src='{$imagePath}'
+                alt='{$data['name']}'
+              />
+              <div class='card-badge'>
+                ⭐ {$data['avg_rating']} Out of 5
+              </div>
+            </div>
+            <div class='card-info'>
+              <h3 class='card-name'>{$data['name']}</h3>
+              <p class='card-location'>{$data['location']}</p>
+              <p class='card-price'>Rs. {$data['price']}</p>
+            </div>
+          </a>";
+        }
+      } catch (Exception $e) {
+        echo $e->getMessage();
+      }
+      ?> {% endcomment %}
+    </div>
+  </div>
+
+</body>
+</html>
