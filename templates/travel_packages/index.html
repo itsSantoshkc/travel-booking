@@ -1,4 +1,6 @@
 
+{% extends 'travel_packages/package_template.html' %}
+{% block content %}
 <head>
     {% load static %}
     <link href="{% static 'css/index.css'%}" rel="stylesheet" />
@@ -31,7 +33,28 @@
 
   <div class="cards-wrapper">
     <div class="cards-grid" id="content">
-      {% comment %} <?php
+ {% for package in packages %}
+    <a class="card-link" href="{% url 'packageDetails' package.package_id %}">
+    
+        <div class="card-img-wrapper">
+                <img
+                class="card-img"
+                src="{{ package.images.first.image_path }}"
+                alt="{{ package.name }}"
+            />
+            <div class="card-badge">
+                ⭐ {{ package.avg_rating }} Out of 5
+            </div>
+        </div>
+        <div class="card-info">
+            <h3 class="card-name">{{ package.name }}</h3>
+            <p class="card-location">{{ package.location }}</p>
+            <p class="card-price">Rs. {{ package.price }}</p>
+        </div>
+    </a>
+{% endfor %}
+      {% comment %} 
+    
       try {
         $travelPackageObj = new Travel($conn);
         $activityData = $travelPackageObj->getAllAvailableTravelPackages();
@@ -68,3 +91,4 @@
 
 </body>
 </html>
+{% endblock %}

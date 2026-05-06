@@ -1,0 +1,61 @@
+
+{% extends 'travel_packages/package_template.html' %}
+{% load static %}
+
+{% block content %}
+
+<head>
+    <link href="{% static 'css/details.css' %}" rel="stylesheet" />
+    <script defer src="{% static 'js/details.js' %}"></script>
+</head>
+
+
+<main class="activity-container">
+    <div class="image-gallery">
+        <div class="image-grid-container" id="imageGridContainer">
+
+            {% for image in package.images.all %}
+                {% if forloop.first %}
+                    <img class="main-grid-image" src="{{ image.image_path }}" alt="Activity Image" />
+                {% else %}
+                    <img class="sub-grid-image" src="{{ image.image_path }}" alt="Activity Image" />
+                {% endif %}
+            {% endfor %}
+
+        </div>
+    </div>
+
+    <div class="details">
+        <h1 id="activityTitle">{{ package.name }}</h1>
+
+        <p class="location" id="activityLocation">
+            <span class="location-text">{{ package.location }}</span>
+        </p>
+
+        <p class="rating" id="activityRating">
+            <i class="fas fa-star" style="color: #FFD700; font-size: 13px;"></i>
+            {{ package.avg_rating|default:"0" }} out of 5
+        </p>
+
+        <p class="description" id="activityDescription">{{ package.description }}</p>
+
+        <div class="tags" id="activityTags">
+            <span><b>Nrs : </b>{{ package.price }}</span>
+            <span><b>{{ available_slots }}</b> Slots Remaining</span>
+            <span><b>Date : </b>{{ package.starting_date }}</span>
+        </div>
+
+        <div class="check-availability-container">
+            {% if available_slots <= 0 %}
+                <button class="check-btn-disabled" disabled>Unavailable</button>
+            {% else %}
+                <button class="check-btn" id="openSlots">Book Now!</button>
+            {% endif %}
+        </div>
+    </div>
+</main>
+
+</body>
+</html>
+
+{% endblock %}
