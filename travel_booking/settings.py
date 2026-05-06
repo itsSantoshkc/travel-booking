@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'users',
-    'travel_packages'
+    'travel_packages',
+    'accounts'
 
 ]
 

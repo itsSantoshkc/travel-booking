@@ -17,9 +17,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
-import users
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('travel_packages.urls')),
+    path('auth/', include('accounts.urls')),
 ]
