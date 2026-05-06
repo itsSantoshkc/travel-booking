@@ -31,12 +31,11 @@
         </p>
       </div>
 
-      <form id="loginForm" method="post" onsubmit="return validateLogInData(event)">
-        
-        <!-- Email -->
+      <form id="loginForm" method="post">
+            {% csrf_token %}
         <div class="mb-5">
           <label for="email" class="block text-[12px] text-[#2b2d42] font-bold mb-2">
-            Email Address
+            Email 
           </label>
           <input
             type="email"
@@ -67,7 +66,7 @@
         <div class="flex justify-between text-[12px] font-bold my-6 max-[450px]:flex-col max-[450px]:gap-3 max-[450px]:text-center">
           <div class="text-[#2b2d42]">
             New User?
-            <a href="signup.php" class="text-[#ef233c] underline cursor-pointer">
+            <a href="/auth/signup" class="text-[#ef233c] underline cursor-pointer">
               Create an account
             </a>
           </div>

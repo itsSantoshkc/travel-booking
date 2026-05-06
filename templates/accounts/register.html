@@ -1,141 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sign Up</title>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign Up</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
+</head>
 
-    <!-- Tailwind CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- Google Font -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-
-  <body class="bg-gray-100 flex justify-center items-center min-h-screen font-['Inter']">
+<body class="bg-gray-100 flex justify-center items-center min-h-screen font-['Inter']">
+  
+  <!-- Reduced width from 404px to 380px and padding from p-10 to p-8 -->
+  <div class="w-[380px] bg-[#edf2f4] rounded-[24px] p-8 shadow-[0px_4px_20px_rgba(0,0,0,0.1)] max-[450px]:w-[95%] max-[450px]:px-5 max-[450px]:py-6">
     
-    <div class="w-[404px] bg-[#edf2f4] rounded-[31px] p-10 shadow-[0px_4px_20px_rgba(0,0,0,0.1)] max-[450px]:w-[90%] max-[450px]:px-5 max-[450px]:py-8">
+    <h1 class="text-[28px] text-black font-bold text-center mb-1">
+      Get Started Now
+    </h1>
+
+    <p class="text-[11px] text-gray-600 font-medium text-center mb-6">
+      Enter your credentials to create an account
+    </p>
+
+    <form id="signupForm" method="POST" class="space-y-3">
+      {% csrf_token %}
       
-      <h1 class="text-[32px] text-black font-bold text-center mb-2">
-        Get Started Now
-      </h1>
-
-      <p class="text-[12px] text-black font-bold text-center mb-8">
-        Enter your credentials to create an account
-      </p>
-
-      <!-- Error Container -->
-      <div class="hidden w-full justify-center items-center mb-3" id="error-container">
-        <p class="text-red-500 text-center text-[14px] w-full">
-          Hello
-        </p>
+      <!-- Side by Side Names -->
+      <div class="flex gap-3">
+        <div class="w-1/2">
+          <label for="first_name" class="block text-[11px] text-[#2b2d42] font-bold mb-1">
+            First Name
+          </label>
+          <input
+            type="text"
+            id="first_name"
+            name="first_name"
+            placeholder="First Name"
+            required
+            class="w-full h-[40px] rounded-md bg-white shadow-[0px_0px_4px_#00000040] px-3 text-[13px] outline-none focus:ring-2 focus:ring-red-400"
+          />
+        </div>
+        <div class="w-1/2">
+          <label for="last_name" class="block text-[11px] text-[#2b2d42] font-bold mb-1">
+            Last Name
+          </label>
+          <input
+            type="text"
+            id="last_name"
+            name="last_name"
+            placeholder="Last Name"
+            required
+            class="w-full h-[40px] rounded-md bg-white shadow-[0px_0px_4px_#00000040] px-3 text-[13px] outline-none focus:ring-2 focus:ring-red-400"
+          />
+        </div>
       </div>
 
-      <form id="signupForm" onsubmit="return validateSignUpData(event)" class="space-y-4">
+      <!-- Username -->
+      <div>
+        <label for="username" class="block text-[11px] text-[#2b2d42] font-bold mb-1">
+          Username
+        </label>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          placeholder="Enter username"
+          required
+          class="w-full h-[40px] rounded-md bg-white shadow-[0px_0px_4px_#00000040] px-3 text-[13px] outline-none focus:ring-2 focus:ring-red-400"
+        />
+      </div>
 
-        <!-- Full Name -->
-        <div>
-          <label for="fullname" class="block text-[12px] text-[#2b2d42] font-bold mb-2">
-            Full Name
-          </label>
-          <input
-            type="text"
-            id="fullname"
-            placeholder="Enter your Full Name"
-            required
-            class="w-full h-[46px] rounded-md bg-white shadow-[0px_0px_4px_#00000040] px-3 text-[14px] outline-none focus:ring-2 focus:ring-red-400"
-          />
-        </div>
+      <!-- Phone -->
+      <div>
+        <label for="phone" class="block text-[11px] text-[#2b2d42] font-bold mb-1">
+          Phone Number
+        </label>
+        <input
+          type="text"
+          id="phone"
+          placeholder="Enter phone number"
+          required
+          name="phone"
+          class="w-full h-[40px] rounded-md bg-white shadow-[0px_0px_4px_#00000040] px-3 text-[13px] outline-none focus:ring-2 focus:ring-red-400"
+        />
+      </div>
 
-        <!-- Phone -->
-        <div>
-          <label for="phone" class="block text-[12px] text-[#2b2d42] font-bold mb-2">
-            Phone Number
-          </label>
-          <input
-            type="text"
-            id="phone"
-            placeholder="Enter your phone number"
-            required
-            class="w-full h-[46px] rounded-md bg-white shadow-[0px_0px_4px_#00000040] px-3 text-[14px] outline-none focus:ring-2 focus:ring-red-400"
-          />
-        </div>
+      <!-- Email -->
+      <div>
+        <label for="email" class="block text-[11px] text-[#2b2d42] font-bold mb-1">
+          Email Address
+        </label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="Enter email"
+          required
+          class="w-full h-[40px] rounded-md bg-white shadow-[0px_0px_4px_#00000040] px-3 text-[13px] outline-none focus:ring-2 focus:ring-red-400"
+        />
+      </div>
 
-        <!-- DOB -->
-        <div>
-          <label for="dob" class="block text-[12px] text-[#2b2d42] font-bold mb-2">
-            Date of Birth
-          </label>
-          <input
-            type="date"
-            id="dob"
-            required
-            class="w-full h-[46px] rounded-md bg-white shadow-[0px_0px_4px_#00000040] px-3 text-[14px] outline-none focus:ring-2 focus:ring-red-400"
-          />
-        </div>
-
-        <!-- Email -->
-        <div>
-          <label for="email" class="block text-[12px] text-[#2b2d42] font-bold mb-2">
-            Email Address
-          </label>
-          <input
-            type="email"
-            id="email"
-            placeholder="Enter your email"
-            required
-            class="w-full h-[46px] rounded-md bg-white shadow-[0px_0px_4px_#00000040] px-3 text-[14px] outline-none focus:ring-2 focus:ring-red-400"
-          />
-        </div>
-
-        <!-- Password -->
-        <div>
-          <label for="password" class="block text-[12px] text-[#2b2d42] font-bold mb-2">
+      <!-- Password Grid (Optional: also side-by-side to save even more space) -->
+      <div class="flex gap-3">
+        <div class="w-1/2">
+          <label for="password" class="block text-[11px] text-[#2b2d42] font-bold mb-1">
             Password
           </label>
           <input
             type="password"
             id="password"
-            placeholder="Enter your password"
+            name="password"
+            placeholder="Password"
             required
-            class="w-full h-[46px] rounded-md bg-white shadow-[0px_0px_4px_#00000040] px-3 text-[14px] outline-none focus:ring-2 focus:ring-red-400"
+            class="w-full h-[40px] rounded-md bg-white shadow-[0px_0px_4px_#00000040] px-3 text-[13px] outline-none focus:ring-2 focus:ring-red-400"
           />
         </div>
-
-        <!-- Confirm Password -->
-        <div>
-          <label for="confirmpassword" class="block text-[12px] text-[#2b2d42] font-bold mb-2">
-            Confirm Password
+        <div class="w-1/2">
+          <label for="confirmpassword" class="block text-[11px] text-[#2b2d42] font-bold mb-1">
+            Confirm
           </label>
           <input
             type="password"
+            name="confirm_password"
             id="confirmpassword"
-            placeholder="Enter your password again"
+            placeholder="Confirm"
             required
-            class="w-full h-[46px] rounded-md bg-white shadow-[0px_0px_4px_#00000040] px-3 text-[14px] outline-none focus:ring-2 focus:ring-red-400"
+            class="w-full h-[40px] rounded-md bg-white shadow-[0px_0px_4px_#00000040] px-3 text-[13px] outline-none focus:ring-2 focus:ring-red-400"
           />
         </div>
+      </div>
 
-        <!-- Footer -->
-        <div class="text-[12px] font-bold text-center text-[#2b2d42] mt-5">
-          Have an account?
-          <a href="login.php" class="text-[#ef233c] underline cursor-pointer">
-            Log In
-          </a>
-        </div>
+      <div class="text-[11px] font-bold text-center text-[#2b2d42] py-2">
+        Have an account?
+        <a href="/auth/login" class="text-[#ef233c] underline">Log In</a>
+      </div>
 
-        <!-- Button -->
-        <button
-          type="submit"
-          class="w-full h-[44px] rounded-md bg-[#ef233c] text-white text-[15px] font-bold cursor-pointer transition duration-300 hover:bg-[#c71d31]"
-        >
-          Create a new account
-        </button>
-      </form>
-    </div>
-
-  </body>
+      <button
+        type="submit"
+        class="w-full h-[40px] rounded-md bg-[#ef233c] text-white text-[14px] font-bold transition duration-300 hover:bg-[#c71d31]"
+      >
+        Create account
+      </button>
+    </form>
+  </div>
+</body>
 </html>
