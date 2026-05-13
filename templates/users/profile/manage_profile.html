@@ -1,0 +1,111 @@
+{% extends 'users/profile/profile_layout.html' %}
+
+{% block content %}
+<main class="min-h-[calc(100vh-64px)] bg-gray-100 flex items-stretch py-8 px-4">
+    <div class="w-full max-w-3xl mx-auto bg-white rounded-2xl border border-gray-100 overflow-hidden self-start my-auto">
+
+        <div class="h-32 relative" style="background-color: #EF233C;">
+            <div class="absolute -bottom-9 left-8">
+                <div class="w-18 h-18 rounded-full border-[3px] border-white bg-red-50 flex items-center justify-center text-xl font-medium"
+                     style="width:72px;height:72px;color:#EF233C;">
+                    {{ user.first_name|slice:":1"|upper }}{{ user.last_name|slice:":1"|upper }}
+                </div>
+            </div>
+        </div>
+
+        <div class="pt-14 pb-8 px-8">
+            <div class="mb-7">
+                <h2 class="text-xl font-medium text-gray-800">{{ user.first_name }} {{ user.last_name }}</h2>
+                <div class="flex items-center gap-3 text-sm text-gray-500 mt-1">
+                    <i class="fas fa-envelope text-sm"></i>
+                    <span>{{ user.email }}</span>
+                    <span class="px-2.5 py-0.5 text-xs font-medium rounded"
+                          style="background:#fde8eb;color:#EF233C;">
+                        {{ user.profile.role|default:"User" }}
+                    </span>
+                </div>
+            </div>
+
+            <form method="POST" class="space-y-5">
+                {% csrf_token %}
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div class="space-y-1.5">
+                        <label class="text-xs font-medium text-gray-500 uppercase tracking-wider">First Name</label>
+                        <div class="relative">
+                            <i class="fas fa-user absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+                            <input type="text" name="firstName" value="{{ user.first_name }}"
+                                class="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:border-transparent outline-none transition-all"
+                                style="--tw-ring-color: #EF233C;">
+                        </div>
+                    </div>
+                    <div class="space-y-1.5">
+                        <label class="text-xs font-medium text-gray-500 uppercase tracking-wider">Last Name</label>
+                        <div class="relative">
+                            <i class="fas fa-user absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+                            <input type="text" name="lastName" value="{{ user.last_name }}"
+                                class="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:border-transparent outline-none transition-all"
+                                style="--tw-ring-color: #EF233C;">
+                        </div>
+                    </div>
+                    <div class="space-y-1.5">
+                        <label class="text-xs font-medium text-gray-500 uppercase tracking-wider">Phone Number</label>
+                        <div class="relative">
+                            <i class="fas fa-phone absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+                            <input type="text" name="phone" value="{{ user.phone }}"
+                                class="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:border-transparent outline-none transition-all"
+                                style="--tw-ring-color: #EF233C;">
+                        </div>
+                    </div>
+                    <div class="space-y-1.5">
+                        <label class="text-xs font-medium text-gray-500 uppercase tracking-wider">Date of Birth</label>
+                        <div class="relative">
+                            <i class="fas fa-calendar absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+                            <input type="date" name="dateOfBirth" value="{{ user.date_of_birth|date:'Y-m-d' }}"
+                                class="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:border-transparent outline-none transition-all"
+                                style="--tw-ring-color: #EF233C;">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-3 py-2">
+                    <div class="flex-1 h-px bg-gray-100"></div>
+                    <span class="text-xs font-medium text-gray-400 uppercase tracking-widest">Account Credentials</span>
+                    <div class="flex-1 h-px bg-gray-100"></div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div class="space-y-1.5">
+                        <label class="text-xs font-medium text-gray-500 uppercase tracking-wider">Email Address</label>
+                        <div class="relative">
+                            <i class="fas fa-envelope absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+                            <input type="email" name="email" value="{{ user.email }}"
+                                class="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:border-transparent outline-none transition-all"
+                                style="--tw-ring-color: #EF233C;">
+                        </div>
+                    </div>
+                    <div class="space-y-1.5">
+                        <label class="text-xs font-medium text-gray-500 uppercase tracking-wider">New Password</label>
+                        <div class="relative">
+                            <i class="fas fa-lock absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+                            <input type="password" name="new_password" placeholder="Leave blank to keep current"
+                                class="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:border-transparent outline-none transition-all"
+                                style="--tw-ring-color: #EF233C;">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pt-4">
+                    <button type="submit"
+                        class="px-7 py-2.5 text-white text-sm font-medium rounded-lg transition-all active:scale-95"
+                        style="background:#EF233C;"
+                        onmouseover="this.style.background='#c41a30'"
+                        onmouseout="this.style.background='#EF233C'">
+                        Save changes
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+{% endblock %}

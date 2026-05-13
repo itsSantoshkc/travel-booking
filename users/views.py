@@ -1,5 +1,8 @@
 from django.shortcuts import render
 
 # Create your views here.
-def index(request):
-    return render(request,"users/index.html")
+def manageProfle(request):
+    return render(request,"users/profile/manage_profile.html")
+
+def recentBooking(request):
+    return render(request,"users/profile/recent_booking.html")

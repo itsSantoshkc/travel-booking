@@ -28,7 +28,6 @@ def searchPackage(request):
         else TravelPackage.objects.prefetch_related('images').all()
     )
 
-    print(packages)
 
     return render(request, 'travel_packages/package_search.html', {
         'packages': packages,

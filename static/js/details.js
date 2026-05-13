@@ -1,5 +1,4 @@
 
-
 function setupBookingHandlers(travelData) {
     document.querySelectorAll(".book-now-btn").forEach((btn) => {
         btn.onclick = (e) => {
@@ -73,6 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // 2. Open Overlay Logic
     if (openBtn && slotOverlay) {
         openBtn.addEventListener('click', () => {
+            console.log("Hello")
             slotOverlay.classList.add("show");
             document.body.style.overflow = 'hidden'; // Prevent background scrolling
         });
@@ -94,7 +94,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
- 
 
     // 6. Helper function to close and reset
     function closePopup() {

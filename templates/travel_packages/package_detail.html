@@ -6,7 +6,7 @@
 
 <head>
     <link href="{% static 'css/details.css' %}" rel="stylesheet" />
-    <script defer src="{% static 'js/details.js' %}"></script>
+    
 </head>
 
 
@@ -46,15 +46,48 @@
         </div>
 
         <div class="check-availability-container">
-            {% if available_slots <= 0 %}
+            {% comment %} {% if available_slots <= 0 or available_slots == None %}
                 <button class="check-btn-disabled" disabled>Unavailable</button>
-            {% else %}
+            {% else %} {% endcomment %}
                 <button class="check-btn" id="openSlots">Book Now!</button>
-            {% endif %}
+            {% comment %} {% endif %} {% endcomment %}
         </div>
     </div>
 </main>
+<script defer src="{% static 'js/details.js' %}"></script>
+<div id="slotOverlay" class="overlay">
+    <div class="popup">
+        <div class="close" id="closeOverlay" aria-label="Close"></div>
+        <h2 class="popup-title">Booking</h2>
+        <div id="slotsContainer">
+            <div class="max-w-lg p-4 mx-auto bg-white border border-gray-100 shadow-lg booking-container rounded-2xl">
+                <form action="processBooking.php" method="POST" id="bookingForm" class="space-y-6">
+                    
+                        <input type="hidden" name="package_id" value="<?php echo $id; ?>"
+                    <?php if($availableSlots > 1){
+                        echo '
+                          <div id="bookingDetails" class="pt-4 space-y-4 border-t ">
+                        <div class="grid gap-4">
+                            <label class="block mb-2 text-sm font-semibold text-gray-600">No of Slots</label>
+                            <select name="no-of-slots" required class="w-full p-3 border border-gray-300 outline-none no-of-slots bg-gray-50 rounded-xl">
+                                <option value="" selected disabled>Select Slots</option>';
+                                for ($i = 1; $i <= $availableSlots; $i++) {
+                                    echo "<option value='$i' class='py-2 text-gray-700 bg-white'>$i</option>";
+                                }
+                                echo '</select>';   } 
+                                ?>
+                  
 
+                            <button type="submit" name="submit_booking"  class="w-full py-4 font-bold text-white transition-all bg-red-500 shadow-lg rounded-xl hover:bg-red-600 active:scale-95">
+                                Confirm Booking
+                            </button>
+                        </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
 </body>
 </html>
 
