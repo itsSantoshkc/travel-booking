@@ -18,3 +18,19 @@ def packageDetails(request, id):
         'package': package,
         'available_slots': available_slots,
     })
+
+def searchPackage(request):
+    package_query = request.GET.get("t", "").strip()
+    
+    packages = (
+        TravelPackage.objects.prefetch_related('images').filter(name__istartswith=package_query)
+        if package_query
+        else TravelPackage.objects.prefetch_related('images').all()
+    )
+
+    print(packages)
+
+    return render(request, 'travel_packages/package_search.html', {
+        'packages': packages,
+        'query': package_query,
+    })

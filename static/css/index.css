@@ -38,7 +38,7 @@
     font-size: 1.2rem;
     border: none;
     outline: none;
-    padding: 4px 10px;
+    /* padding: 4px -1px; */
     background: transparent;
   }
 
@@ -46,14 +46,14 @@
     background: #f1f5f9;
   }
 
-  .search-inputs input[name="location"] {
-    width: 50%;
+  .search-inputs input[name="t"] {
+    width: 66%;
     border-radius: 999px 0 0 999px;
     padding-left: 20px;
   }
 
   .search-inputs input[name="date"] {
-    width: 50%;
+    width: 33%;
   }
 
   .search-divider {

@@ -11,10 +11,10 @@
 
   <div class="search-wrapper">
     <div class="search-box">
-      <form method="get" action="searchActivity.php" class="search-form">
+      <form method="get" action="{% url 'searchPackages' %}" class="search-form">
 
         <div class="search-inputs">
-          <input type="text" name="location" id="location" placeholder="Destination">
+          <input type="text" name="t" id="t" placeholder="Destination" >
           <span class="search-divider">|</span>
           <input type="date" name="date" id="date" placeholder="Date">
         </div>
@@ -43,7 +43,7 @@
                 alt="{{ package.name }}"
             />
             <div class="card-badge">
-                ⭐ {{ package.avg_rating }} Out of 5
+                ⭐ {{ package.avg_rating|default:"0" }} Out of 5
             </div>
         </div>
         <div class="card-info">
