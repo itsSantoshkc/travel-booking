@@ -1,5 +1,6 @@
 import uuid
 from django.db import models
+from users.models import User
 
 
 class TravelPackage(models.Model):
@@ -29,3 +30,16 @@ class PackageImage(models.Model):
 
     def __str__(self):
         return f"Image for {self.package.name}"
+    
+class Booking(models.Model):
+    class Status(models.TextChoices):
+        PENDING  = 'pending',  'Pending'
+        APPROVED = 'approved', 'Approved'
+        REJECTED = 'rejected', 'Rejected'
+
+    booking_id = models.CharField(max_length=100, primary_key=True)
+    user       = models.ForeignKey(User, on_delete=models.CASCADE, db_column='user_id')
+    package    = models.ForeignKey(TravelPackage, on_delete=models.CASCADE, db_column='package_id')
+    no_of_slots = models.IntegerField()
+    status     = models.CharField(max_length=10, choices=Status.choices, default=Status.PENDING)
+    booked_at  = models.DateTimeField(auto_now_add=True)
