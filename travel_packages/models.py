@@ -37,7 +37,7 @@ class Booking(models.Model):
         APPROVED = 'approved', 'Approved'
         REJECTED = 'rejected', 'Rejected'
 
-    booking_id = models.CharField(max_length=100, primary_key=True)
+    booking_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     user       = models.ForeignKey(User, on_delete=models.CASCADE, db_column='user_id')
     package    = models.ForeignKey(TravelPackage, on_delete=models.CASCADE, db_column='package_id')
     no_of_slots = models.IntegerField()
