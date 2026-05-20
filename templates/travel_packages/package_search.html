@@ -15,7 +15,7 @@
     <main class="container mx-auto px-4 pb-16">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-24 gap-y-12">
             
-            {% for package in packages %}
+            {% for package in page_obj %}
             <a href="{% url 'packageDetails' package.package_id %}" class="group block transition-transform hover:-translate-y-1">
                 <div class="relative w-full">
                     {% if package.images.all %}
@@ -50,6 +50,20 @@
             </div>
             {% endfor %}
 
+        </div>
+
+        <div class="flex justify-center items-center gap-4 mt-8">
+            {% if page_obj.has_previous %}
+              <a href="?t={{ query }}&page=1" class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition">First</a>
+              <a href="?t={{ query }}&page={{ page_obj.previous_page_number }}" class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition">Prev</a>
+            {% endif %}
+
+            <span class="text-gray-600 font-medium">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+
+            {% if page_obj.has_next %}
+              <a href="?t={{ query }}&page={{ page_obj.next_page_number }}" class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition">Next</a>
+              <a href="?t={{ query }}&page={{ page_obj.paginator.num_pages }}" class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition">Last</a>
+            {% endif %}
         </div>
     </main>
 </div>

@@ -31,9 +31,9 @@
     </div>
   </div>
 
-  <div class="cards-wrapper">
+<div class="cards-wrapper">
     <div class="cards-grid" id="content">
- {% for package in packages %}
+  {% for package in page_obj %}
     <a class="card-link" href="{% url 'packageDetails' package.package_id %}">
     
         <div class="card-img-wrapper">
@@ -53,40 +53,21 @@
         </div>
     </a>
 {% endfor %}
-      {% comment %} 
-    
-      try {
-        $travelPackageObj = new Travel($conn);
-        $activityData = $travelPackageObj->getAllAvailableTravelPackages();
-
-        foreach ($activityData as $data) {
-          if (!empty($data['images'])) {
-            $imagePath = str_replace('../', '', $data['images'][0]);
-          }
-          echo "
-          <a class='card-link' href='travelPackage.php?package={$data['package_id']}'>
-            <div class='card-img-wrapper'>
-              <img
-                class='card-img'
-                src='{$imagePath}'
-                alt='{$data['name']}'
-              />
-              <div class='card-badge'>
-                ⭐ {$data['avg_rating']} Out of 5
-              </div>
-            </div>
-            <div class='card-info'>
-              <h3 class='card-name'>{$data['name']}</h3>
-              <p class='card-location'>{$data['location']}</p>
-              <p class='card-price'>Rs. {$data['price']}</p>
-            </div>
-          </a>";
-        }
-      } catch (Exception $e) {
-        echo $e->getMessage();
-      }
-      ?> {% endcomment %}
     </div>
+  </div>
+
+  <div class="flex justify-center items-center gap-4 mt-8 mb-8">
+    {% if page_obj.has_previous %}
+      <a href="?page=1" class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition">First</a>
+      <a href="?page={{ page_obj.previous_page_number }}" class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition">Prev</a>
+    {% endif %}
+
+    <span class="text-gray-600 font-medium">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+
+    {% if page_obj.has_next %}
+      <a href="?page={{ page_obj.next_page_number }}" class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition">Next</a>
+      <a href="?page={{ page_obj.paginator.num_pages }}" class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition">Last</a>
+    {% endif %}
   </div>
 
 </body>

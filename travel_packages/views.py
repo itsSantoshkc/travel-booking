@@ -1,11 +1,14 @@
 from django.shortcuts import get_object_or_404, render
+from django.core.paginator import Paginator
 
 from travel_packages.models import TravelPackage
 
-# Create your views here.
 def index(request):
     packages = TravelPackage.objects.prefetch_related('images').all()
-    return render(request,"travel_packages/index.html",{'packages': packages})
+    paginator = Paginator(packages, 9)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request,"travel_packages/index.html",{'page_obj': page_obj})
 
 
 def packageDetails(request, id):
@@ -13,10 +16,12 @@ def packageDetails(request, id):
         TravelPackage.objects.prefetch_related('images'),
         package_id=id
     )
-    available_slots = package.totalSlots 
+    available_slots = package.totalSlots
+    slots_range = list(range(1, available_slots + 1))
     return render(request, 'travel_packages/package_detail.html', {
         'package': package,
         'available_slots': available_slots,
+        'slots_range': slots_range,
     })
 
 def searchPackage(request):
@@ -28,8 +33,11 @@ def searchPackage(request):
         else TravelPackage.objects.prefetch_related('images').all()
     )
 
+    paginator = Paginator(packages, 9)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
 
     return render(request, 'travel_packages/package_search.html', {
-        'packages': packages,
+        'page_obj': page_obj,
         'query': package_query,
     })
